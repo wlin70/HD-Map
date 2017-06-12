@@ -1,0 +1,1050 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HDMap Test</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <link href='hdmap.css' rel='stylesheet'/>
+    <link rel="stylesheet" href="hdmap-measure.css"/>
+    <link rel="stylesheet" href="hdmap.draw.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="Control.MiniMap.css"/>
+    <script src='hdmap-src.js'></script>
+    <script src='hdmap-shipLayer.js'></script>
+    <script src="hdmap-measure.js"></script>
+    <script src="hdmap.draw-src.js"></script>
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="Control.MiniMap.js"></script>
+</head>
+<body>
+<div id='map'></div>
+<div class="popup_button" id="popup_button">
+    <a class="city_change" href="javascript:void(0)"
+       style="color: rgb(102, 102, 102);vertical-align: middle;position: relative;}">大连市</a>
+
+    <div class="icon-city-change"></div>
+</div>
+<div id="map_popup" class="map_popup" style="display: none;">
+    <div class="popup_main">
+        <div class="title">城市列表
+            <div style="display:inline-block; float: right;">
+                当前城市:<a class="CurCityInfo" style="display: inline-block;padding-right: 10px;font-weight: 500">大连市</a>
+            </div>
+        </div>
+        <div class="content sel_city">
+            <div id="selCityTop">
+                <div class="sel_city_default" style="display: block;">
+                    <a href="javascript:search('北京市');">北京</a>
+                    <a href="javascript:search('上海市');">上海</a>
+                    <a href="javascript:search('广州市');">广州</a>
+                    <a href="javascript:search('深圳市');">深圳</a>
+                    <a href="javascript:search('大连市');">大连</a>
+                    <a href="javascript:search('合肥市');">合肥</a>
+                    <a href="javascript:search('天津市');">天津</a>
+                    <a href="javascript:search('南京市');">南京</a>
+                    <a href="javascript:search('杭州市');">杭州</a>
+                    <a href="javascript:search('重庆市');">重庆</a>
+                    <a href="javascript:search('武汉市');">武汉</a>
+                </div>
+                <div class="sel-city-searchbar">
+                    <div class="sel-city-searchbar">
+                        <form onsubmit="search();return false;">
+                            <input type="text" class="sel-city-searchinput" value="请指定搜索城市..."
+                                   onfocus="if (value =='请指定搜索城市...'){value =''}"
+                                   onblur="if (value ==''){value='请指定搜索城市...'}">
+                            <span class="sel-city-btn-submit" onclick=search()>确定</span>
+                        </form>
+                    </div>
+                </div>
+                <div id="selCityLetterListId" class="sel-city-letterbar">
+                    <b style="font-weight: 700;color: #3d6dcc;margin-right: 15px;display: inline-block">按省份</b>
+                    <a href="javascript:scroll(15);">A</a>
+                    <a href="javascript:scroll(94);">F</a>
+                    <a href="javascript:scroll(150)">G</a>
+                    <a href="javascript:scroll(410)">H</a>
+                    <a href="javascript:scroll(824)">J</a>
+                    <a href="javascript:scroll(990)">L</a>
+                    <a href="javascript:scroll(1044)">N</a>
+                    <a href="javascript:scroll(1175)">Q</a>
+                    <a href="javascript:scroll(1230)">S</a>
+                    <!--<a href="javascript:scroll(1540)">T</a>-->
+                    <a href="javascript:scroll(1493)">X</a>
+                    <a href="javascript:scroll(1600)">Y</a>
+                    <a href="javascript:scroll(2000)">Z</a>
+                </div>
+                <div style="border-bottom:1px solid #CCC;padding-top:5px;"></div>
+                <div id="selCityPlaceListId" style="width: 386px; height: 264px; padding-top:10px;overflow-y: scroll;">
+                    <table style="border-collapse:collapse;border-spacing:0;" cellpadding="0" cellspacing="0">
+                        <tbody class="sel-city">
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>A</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('安徽省')">安徽:</a></td>
+                            <td><a href="javascript:search('合肥市');">合肥</a>
+                                <a href="javascript:search('安庆市');">安庆</a>
+                                <a href="javascript:search('蚌埠市');">蚌埠</a>
+                                <a href="javascript:search('亳州市');">亳州</a>
+                                <!--<a href="javascript:search('巢湖市');">巢湖</a>-->
+                                <a href="javascript:search('池州市');">池州</a>
+                                <a href="javascript:search('滁州市');">滁州</a>
+                                <a href="javascript:search('阜阳市');">阜阳</a>
+                                <a href="javascript:search('淮北市');">淮北</a>
+                                <a href="javascript:search('淮南市');">淮南</a>
+                                <a href="javascript:search('黄山市');">黄山</a>
+                                <a href="javascript:search('六安市');">六安</a>
+                                <a href="javascript:search('马鞍山市');">马鞍山</a>
+                                <a href="javascript:search('宿州市');">宿州</a>
+                                <a href="javascript:search('铜陵市');">铜陵</a>
+                                <a href="javascript:search('芜湖市');">芜湖</a>
+                                <a href="javascript:search('宣城市');">宣城</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>F</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('福建省')">福建:</a></td>
+                            <td><a href="javascript:search('福州市');">福州</a>
+                                <a href="javascript:search('龙岩市');">龙岩</a>
+                                <a href="javascript:search('南平市');">南平</a>
+                                <a href="javascript:search('宁德市');">宁德</a>
+                                <a href="javascript:search('莆田市');">莆田</a>
+                                <a href="javascript:search('泉州市');">泉州</a>
+                                <a href="javascript:search('三明市');">三明</a>
+                                <a href="javascript:search('厦门市');">厦门</a>
+                                <a href="javascript:search('漳州市');">漳州</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>G</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('广东省')">广东:</a></td>
+                            <td><a href="javascript:search('广州市');">广州</a>
+                                <a href="javascript:search('潮州市');">潮州</a>
+                                <a href="javascript:search('东莞市');">东莞</a>
+                                <a href="javascript:search('佛山市');">佛山</a>
+                                <a href="javascript:search('河源市');">河源</a>
+                                <a href="javascript:search('惠州市');">惠州</a>
+                                <a href="javascript:search('江门市');">江门</a>
+                                <a href="javascript:search('揭阳市');">揭阳</a>
+                                <a href="javascript:search('茂名市');">茂名</a>
+                                <a href="javascript:search('梅州市');">梅州</a>
+                                <a href="javascript:search('清远市');">清远</a>
+                                <a href="javascript:search('汕头市');">汕头</a>
+                                <a href="javascript:search('汕尾市');">汕尾</a>
+                                <a href="javascript:search('韶关市');">韶关</a>
+                                <a href="javascript:search('深圳市');">深圳</a>
+                                <a href="javascript:search('阳江市');">阳江</a>
+                                <a href="javascript:search('云浮市');">云浮</a>
+                                <a href="javascript:search('湛江市');">湛江</a>
+                                <a href="javascript:search('肇庆市');">肇庆</a>
+                                <a href="javascript:search('中山市');">中山</a>
+                                <a href="javascript:search('珠海市');">珠海</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('广西')">广西:</a></td>
+                            <td><a href="javascript:search('南宁市');">南宁</a>
+                                <a href="javascript:search('百色市');">百色</a>
+                                <a href="javascript:search('北海市');">北海</a>
+                                <a href="javascript:search('崇左市');">崇左</a>
+                                <a href="javascript:search('防城港市');">防城港</a>
+                                <a href="javascript:search('桂林市');">桂林</a>
+                                <a href="javascript:search('贵港市');">贵港</a>
+                                <a href="javascript:search('河池市');">河池</a>
+                                <a href="javascript:search('贺州市');">贺州</a>
+                                <a href="javascript:search('来宾市');">来宾</a>
+                                <a href="javascript:search('柳州市');">柳州</a>
+                                <a href="javascript:search('钦州市');">钦州</a>
+                                <a href="javascript:search('梧州市');">梧州</a>
+                                <a href="javascript:search('玉林市');">玉林</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('贵州省')">贵州:</a></td>
+                            <td><a href="javascript:search('贵阳市');">贵阳</a>
+                                <a href="javascript:search('安顺市');">安顺</a>
+                                <a href="javascript:search('毕节市');">毕节</a>
+                                <a href="javascript:search('六盘水市');">六盘水</a>
+                                <a href="javascript:search('铜仁');">铜仁</a>
+                                <a href="javascript:search('遵义市');">遵义</a>
+                                <a href="javascript:search('黔西南布依族苗族自治州');" name="黔西南布依族苗族自治州">黔西南州</a>
+                                <a href="javascript:search('黔东南苗族侗族自治州');" name="黔东南苗族侗族自治州">黔东南州</a>
+                                <a href="javascript:search('黔南布依族苗族自治州');" name="黔南布依族苗族自治州">黔南州</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('甘肃省')">甘肃:</a></td>
+                            <td><a href="javascript:search('兰州市');">兰州</a>
+                                <a href="javascript:search('白银市');">白银</a>
+                                <a href="javascript:search('定西市');">定西</a>
+                                <a href="javascript:search('甘南藏族自治州');" name="甘南藏族自治州">甘南州</a>
+                                <a href="javascript:search('嘉峪关市');">嘉峪关</a>
+                                <a href="javascript:search('金昌市');">金昌</a>
+                                <a href="javascript:search('酒泉市');">酒泉</a>
+                                <a href="javascript:search('临夏回族自治州');" name="临夏回族自治州">临夏州</a>
+                                <a href="javascript:search('陇南市');">陇南</a>
+                                <a href="javascript:search('平凉市');">平凉</a>
+                                <a href="javascript:search('庆阳市');">庆阳</a>
+                                <a href="javascript:search('天水市');">天水</a>
+                                <a href="javascript:search('武威市');">武威</a>
+                                <a href="javascript:search('张掖市');">张掖</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>H</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('海南省')">海南:</a></td>
+                            <td><a href="javascript:search('海口市');">海口</a>
+                                <a href="javascript:search('白沙黎族自治县');" name="白沙黎族自治县">白沙</a>
+                                <a href="javascript:search('保亭黎族苗族自治县');" name="保亭黎族苗族自治县">保亭</a>
+                                <a href="javascript:search('昌江黎族自治县');" name="昌江黎族自治县">昌江</a>
+                                <!--<a href="javascript:search('儋州市');">儋州</a>-->
+                                <a href="javascript:search('澄迈');">澄迈</a>
+                                <!--<a href="javascript:search('东方市');">东方</a>-->
+                                <a href="javascript:search('定安');">定安</a>
+                                <!--<a href="javascript:search('琼海市');">琼海</a>-->
+                                <a href="javascript:search('琼中黎族苗族自治县');" name="琼中黎族苗族自治县">琼中</a>
+                                <a href="javascript:search('乐东黎族自治县');" name="乐东黎族自治县">乐东</a>
+                                <a href="javascript:search('临高');">临高</a>
+                                <a href="javascript:search('陵水黎族自治县');" name="陵水黎族自治县">陵水</a>
+                                <a href="javascript:search('三亚市');">三亚</a>
+                                <a href="javascript:search('屯昌');">屯昌</a>
+                                <!--<a href="javascript:search('万宁市');">万宁</a>-->
+                                <!--<a href="javascript:search('文昌市');">文昌</a>-->
+                                <!--<a href="javascript:search('五指山市');">五指山</a>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('河南省')">河南:</a></td>
+                            <td><a href="javascript:search('郑州');">郑州</a>
+                                <a href="javascript:search('安阳');">安阳</a>
+                                <a href="javascript:search('鹤壁');">鹤壁</a>
+                                <a href="javascript:search('焦作');">焦作</a>
+                                <a href="javascript:search('开封');">开封</a>
+                                <a href="javascript:search('洛阳');">洛阳</a>
+                                <a href="javascript:search('漯河');">漯河</a>
+                                <a href="javascript:search('南阳');">南阳</a>
+                                <a href="javascript:search('平顶山');">平顶山</a>
+                                <a href="javascript:search('濮阳');">濮阳</a>
+                                <a href="javascript:search('三门峡');">三门峡</a>
+                                <a href="javascript:search('商丘');">商丘</a>
+                                <a href="javascript:search('新乡');">新乡</a>
+                                <a href="javascript:search('信阳');">信阳</a>
+                                <a href="javascript:search('许昌');">许昌</a>
+                                <a href="javascript:search('周口');">周口</a>
+                                <a href="javascript:search('驻马店');">驻马店</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('黑龙江省')">黑龙江:</a></td>
+                            <td><a href="javascript:search('哈尔滨');">哈尔滨</a>
+                                <a href="javascript:search('大庆');">大庆</a>
+                                <a href="javascript:search('大兴安岭地区');">大兴安岭地区</a>
+                                <a href="javascript:search('鹤岗');">鹤岗</a>
+                                <a href="javascript:search('黑河');">黑河</a>
+                                <a href="javascript:search('鸡西');">鸡西</a>
+                                <a href="javascript:search('佳木斯');">佳木斯</a>
+                                <a href="javascript:search('牡丹江');">牡丹江</a>
+                                <a href="javascript:search('七台河');">七台河</a>
+                                <a href="javascript:search('齐齐哈尔');">齐齐哈尔</a>
+                                <a href="javascript:search('双鸭山');">双鸭山</a>
+                                <a href="javascript:search('绥化');">绥化</a>
+                                <a href="javascript:search('伊春');">伊春</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('湖北省')">湖北:</a></td>
+                            <td><a href="javascript:search('武汉');">武汉</a>
+                                <a href="javascript:search('鄂州');">鄂州</a>
+                                <a href="javascript:search('恩施土家族苗族自治州');" name="恩施土家族苗族自治州">恩施</a>
+                                <a href="javascript:search('黄冈');">黄冈</a>
+                                <a href="javascript:search('黄石');">黄石</a>
+                                <a href="javascript:search('荆门');">荆门</a>
+                                <a href="javascript:search('荆州');">荆州</a>
+                                <!--<a href="javascript:search('潜江');">潜江</a>-->
+                                <a href="javascript:search('神农架林区');">神农架林区</a>
+                                <a href="javascript:search('十堰');">十堰</a>
+                                <a href="javascript:search('随州');">随州</a>
+                                <!--<a href="javascript:search('天门');">天门</a>-->
+                                <!--<a href="javascript:search('仙桃');">仙桃</a>-->
+                                <a href="javascript:search('咸宁');">咸宁</a>
+                                <a href="javascript:search('襄阳');">襄阳</a>
+                                <a href="javascript:search('孝感');">孝感</a>
+                                <a href="javascript:search('宜昌');">宜昌</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('湖南省')">湖南:</a></td>
+                            <td><a href="javascript:search('长沙');">长沙</a>
+                                <a href="javascript:search('常德');">常德</a>
+                                <a href="javascript:search('郴州');">郴州</a>
+                                <a href="javascript:search('衡阳');">衡阳</a>
+                                <a href="javascript:search('怀化');">怀化</a>
+                                <a href="javascript:search('娄底');">娄底</a>
+                                <a href="javascript:search('邵阳');">邵阳</a>
+                                <a href="javascript:search('湘潭');">湘潭</a>
+                                <a href="javascript:search('湘西土家族苗族自治州');" name="湘西土家族苗族自治州">湘西州</a>
+                                <a href="javascript:search('益阳');">益阳</a>
+                                <a href="javascript:search('永州');">永州</a>
+                                <a href="javascript:search('岳阳');">岳阳</a>
+                                <a href="javascript:search('张家界');">张家界</a>
+                                <a href="javascript:search('株洲');">株洲</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('河北省')">河北:</a></td>
+                            <td><a href="javascript:search('石家庄');">石家庄</a>
+                                <a href="javascript:search('保定');">保定</a>
+                                <a href="javascript:search('沧州');">沧州</a>
+                                <a href="javascript:search('承德');">承德</a>
+                                <a href="javascript:search('邯郸');">邯郸</a>
+                                <a href="javascript:search('衡水');">衡水</a>
+                                <a href="javascript:search('廊坊');">廊坊</a>
+                                <a href="javascript:search('秦皇岛');">秦皇岛</a>
+                                <a href="javascript:search('唐山');">唐山</a>
+                                <a href="javascript:search('邢台');">邢台</a>
+                                <a href="javascript:search('张家口');">张家口</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>J</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('江苏省')">江苏:</a></td>
+                            <td><a href="javascript:search('南京');">南京</a>
+                                <a href="javascript:search('常州');">常州</a>
+                                <a href="javascript:search('淮安');">淮安</a>
+                                <a href="javascript:search('连云港');">连云港</a>
+                                <a href="javascript:search('南通');">南通</a>
+                                <a href="javascript:search('苏州');">苏州</a>
+                                <a href="javascript:search('宿迁');">宿迁</a>
+                                <a href="javascript:search('泰州');">泰州</a>
+                                <a href="javascript:search('无锡');">无锡</a>
+                                <a href="javascript:search('徐州');">徐州</a>
+                                <a href="javascript:search('盐城');">盐城</a>
+                                <a href="javascript:search('扬州');">扬州</a>
+                                <a href="javascript:search('镇江');">镇江</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('江西省')">江西:</a></td>
+                            <td><a href="javascript:search('南昌');">南昌</a>
+                                <a href="javascript:search('抚州');">抚州</a>
+                                <a href="javascript:search('赣州');">赣州</a>
+                                <a href="javascript:search('吉安');">吉安</a>
+                                <a href="javascript:search('景德镇');">景德镇</a>
+                                <a href="javascript:search('九江');">九江</a>
+                                <a href="javascript:search('萍乡');">萍乡</a>
+                                <a href="javascript:search('上饶');">上饶</a>
+                                <a href="javascript:search('新余');">新余</a>
+                                <a href="javascript:search('宜春');">宜春</a>
+                                <a href="javascript:search('鹰潭');">鹰潭</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('吉林省')" name="吉林省">吉林:</a>
+                            </td>
+                            <td><a href="javascript:search('长春');">长春</a>
+                                <a href="javascript:search('白城');">白城</a>
+                                <a href="javascript:search('白山');">白山</a>
+                                <a href="javascript:search('吉林市');">吉林市</a>
+                                <a href="javascript:search('辽源');">辽源</a>
+                                <a href="javascript:search('四平');">四平</a>
+                                <a href="javascript:search('松原');">松原</a>
+                                <a href="javascript:search('通化');">通化</a>
+                                <a href="javascript:search('延边朝鲜族自治州');" name="延边朝鲜族自治州">延边</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>L</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('辽宁省')">辽宁:</a></td>
+                            <td><a href="javascript:search('沈阳');">沈阳</a>
+                                <a href="javascript:search('鞍山');">鞍山</a>
+                                <a href="javascript:search('本溪');">本溪</a>
+                                <a href="javascript:search('朝阳市');">朝阳</a>
+                                <a href="javascript:search('大连');">大连</a>
+                                <a href="javascript:search('丹东');">丹东</a>
+                                <a href="javascript:search('抚顺');">抚顺</a>
+                                <a href="javascript:search('阜新');">阜新</a>
+                                <a href="javascript:search('葫芦岛');">葫芦岛</a>
+                                <a href="javascript:search('锦州');">锦州</a>
+                                <a href="javascript:search('辽阳');">辽阳</a>
+                                <a href="javascript:search('盘锦');">盘锦</a>
+                                <a href="javascript:search('铁岭');">铁岭</a>
+                                <a href="javascript:search('营口');">营口</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>N</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('宁夏')">宁夏:</a></td>
+                            <td><a href="javascript:search('银川');">银川</a>
+                                <a href="javascript:search('固原');">固原</a>
+                                <a href="javascript:search('石嘴山');">石嘴山</a>
+                                <a href="javascript:search('吴忠');">吴忠</a>
+                                <a href="javascript:search('中卫');">中卫</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('内蒙古')">内蒙古:</a></td>
+                            <td><a href="javascript:search('呼和浩特');">呼和浩特</a>
+                                <a href="javascript:search('阿拉善盟');">阿拉善盟</a>
+                                <a href="javascript:search('包头');">包头</a>
+                                <a href="javascript:search('巴彦淖尔');">巴彦淖尔</a>
+                                <a href="javascript:search('赤峰');">赤峰</a>
+                                <a href="javascript:search('鄂尔多斯');">鄂尔多斯</a>
+                                <a href="javascript:search('呼伦贝尔');">呼伦贝尔</a>
+                                <a href="javascript:search('通辽');">通辽</a>
+                                <a href="javascript:search('乌海');">乌海</a>
+                                <a href="javascript:search('乌兰察布');">乌兰察布</a>
+                                <a href="javascript:search('锡林郭勒盟');">锡林郭勒盟</a>
+                                <a href="javascript:search('兴安盟');">兴安盟</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>Q</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('青海省')">青海:</a></td>
+                            <td><a href="javascript:search('西宁');">西宁</a>
+                                <a href="javascript:search('果洛藏族自治州');" name="果洛藏族自治州">果洛州</a>
+                                <a href="javascript:search('海东市');">海东市</a>
+                                <a href="javascript:search('海北藏族自治州');" name="海北藏族自治州">海北州</a>
+                                <a href="javascript:search('海南藏族自治州');" name="海南藏族自治州">海南州</a>
+                                <a href="javascript:search('海西蒙古族藏族自治州');" name="海西蒙古族藏族自治州">海西州</a>
+                                <a href="javascript:search('黄南藏族自治州');" name="黄南藏族自治州">黄南州</a>
+                                <a href="javascript:search('玉树藏族自治州');" name="玉树藏族自治州">玉树州</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>S</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('山东省')">山东:</a></td>
+                            <td><a href="javascript:search('济南');">济南</a>
+                                <a href="javascript:search('滨州');">滨州</a>
+                                <a href="javascript:search('东营');">东营</a>
+                                <a href="javascript:search('德州');">德州</a>
+                                <a href="javascript:search('菏泽');">菏泽</a>
+                                <a href="javascript:search('济宁');">济宁</a>
+                                <a href="javascript:search('莱芜');">莱芜</a>
+                                <a href="javascript:search('聊城');">聊城</a>
+                                <a href="javascript:search('临沂');">临沂</a>
+                                <a href="javascript:search('青岛');">青岛</a>
+                                <a href="javascript:search('日照');">日照</a>
+                                <a href="javascript:search('泰安');">泰安</a>
+                                <a href="javascript:search('威海');">威海</a>
+                                <a href="javascript:search('潍坊');">潍坊</a>
+                                <a href="javascript:search('烟台');">烟台</a>
+                                <a href="javascript:search('枣庄');">枣庄</a>
+                                <a href="javascript:search('淄博');">淄博</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('山西省')">山西:</a></td>
+                            <td><a href="javascript:search('太原');">太原</a>
+                                <a href="javascript:search('长治');">长治</a>
+                                <a href="javascript:search('大同');">大同</a>
+                                <a href="javascript:search('晋城');">晋城</a>
+                                <a href="javascript:search('晋中');">晋中</a>
+                                <a href="javascript:search('临汾');">临汾</a>
+                                <a href="javascript:search('吕梁');">吕梁</a>
+                                <a href="javascript:search('朔州');">朔州</a>
+                                <a href="javascript:search('忻州');">忻州</a>
+                                <a href="javascript:search('阳泉');">阳泉</a>
+                                <a href="javascript:search('运城');">运城</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('陕西省')">陕西:</a></td>
+                            <td><a href="javascript:search('西安');">西安</a>
+                                <a href="javascript:search('安康');">安康</a>
+                                <a href="javascript:search('宝鸡');">宝鸡</a>
+                                <a href="javascript:search('汉中');">汉中</a>
+                                <a href="javascript:search('商洛');">商洛</a>
+                                <a href="javascript:search('铜川');">铜川</a>
+                                <a href="javascript:search('渭南');">渭南</a>
+                                <a href="javascript:search('咸阳');">咸阳</a>
+                                <a href="javascript:search('延安');">延安</a>
+                                <a href="javascript:search('榆林');">榆林</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('四川省')">四川:</a></td>
+                            <td><a href="javascript:search('成都');">成都</a>
+                                <a href="javascript:search('阿坝藏族羌族自治州');" name="阿坝藏族羌族自治州">阿坝州</a>
+                                <a href="javascript:search('巴中');">巴中</a>
+                                <a href="javascript:search('达州');">达州</a>
+                                <a href="javascript:search('德阳');">德阳</a>
+                                <a href="javascript:search('甘孜藏族自治州');" name="甘孜藏族自治州">甘孜州</a>
+                                <a href="javascript:search('广安');">广安</a>
+                                <a href="javascript:search('广元');">广元</a>
+                                <a href="javascript:search('乐山');">乐山</a>
+                                <a href="javascript:search('凉山彝族自治州');" name="凉山彝族自治州">凉山州</a>
+                                <a href="javascript:search('泸州');">泸州</a>
+                                <a href="javascript:search('南充');">南充</a>
+                                <!--<a href="javascript:search('眉山市');">眉山</a>-->
+                                <a href="javascript:search('绵阳');">绵阳</a>
+                                <a href="javascript:search('内江');">内江</a>
+                                <a href="javascript:search('攀枝花');">攀枝花</a>
+                                <a href="javascript:search('遂宁');">遂宁</a>
+                                <a href="javascript:search('雅安');">雅安</a>
+                                <a href="javascript:search('宜宾');">宜宾</a>
+                                <a href="javascript:search('资阳');">资阳</a>
+                                <a href="javascript:search('自贡');">自贡</a>
+                            </td>
+                        </tr>
+                        <!--<tr>-->
+                        <!--<td class="sel-city-td-letter">-->
+                        <!--<div>T</div>-->
+                        <!--</td>-->
+                        <!--<td class="sel-city-td-sf"><a href="javascript:void(0)">台湾:</a></td>-->
+                        <!--<td><a href="javascript:search('台');">台北</a>-->
+                        <!--<a href="javascript:search('高雄');">高雄</a>-->
+                        <!--<a href="javascript:search('台中');">台中</a>-->
+                        <!--<a href="javascript:search('台南');">台南</a>-->
+                        <!--<a href="javascript:search('新北');">新北</a>-->
+                        <!--<a href="javascript:search('基隆');">基隆</a>-->
+                        <!--<a href="javascript:search('新竹');">新竹</a>-->
+                        <!--<a href="javascript:search('嘉义');">嘉义</a>-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>X</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('西藏')">西藏:</a></td>
+                            <td><a href="javascript:search('拉萨');">拉萨</a>
+                                <a href="javascript:search('阿里地区');">阿里地区</a>
+                                <a href="javascript:search('昌都地区');">昌都地区</a>
+                                <a href="javascript:search('林芝地区');">林芝地区</a>
+                                <a href="javascript:search('那曲地区');">那曲地区</a>
+                                <a href="javascript:search('日喀则市');">日喀则地区</a>
+                                <a href="javascript:search('山南地区');">山南地区</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div></div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('新疆')">新疆:</a></td>
+                            <td><a href="javascript:search('乌鲁木齐');">乌鲁木齐</a>
+                                <!--<a href="javascript:search('阿拉尔地区');">阿拉尔</a>-->
+                                <a href="javascript:search('阿克苏地区');">阿克苏地区</a>
+                                <a href="javascript:search('阿勒泰地区');">阿勒泰地区</a>
+                                <a href="javascript:search('巴音郭楞蒙古自治州');" name="巴音郭楞蒙古自治州">巴音郭楞</a>
+                                <a href="javascript:search('博尔塔拉蒙古自治州');" name="博尔塔拉蒙古自治州">博尔塔拉州</a>
+                                <a href="javascript:search('昌吉回族自治州');" name="昌吉回族自治州">昌吉州</a>
+                                <a href="javascript:search('哈密地区');">哈密地区</a>
+                                <a href="javascript:search('和田地区');">和田地区</a>
+                                <a href="javascript:search('喀什地区');">喀什地区</a>
+                                <a href="javascript:search('克拉玛依');">克拉玛依</a>
+                                <a href="javascript:search('克孜勒苏柯尔克孜自治州');" name="克孜勒苏柯尔克孜自治州">克孜勒苏州</a>
+                                <!--<a href="javascript:search('石河子');">石河子</a>-->
+                                <a href="javascript:search('塔城地区');">塔城地区</a>
+                                <!--<a href="javascript:search('图木舒克');">图木舒克</a>-->
+                                <a href="javascript:search('吐鲁番地区');">吐鲁番地区</a>
+                                <!--<a href="javascript:search('五家渠');">五家渠</a>-->
+                                <a href="javascript:search('伊犁哈萨克自治州');" name="伊犁哈萨克自治州">伊犁州</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>Y</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('云南省')">云南:</a></td>
+                            <td><a href="javascript:search('昆明');">昆明</a>
+                                <a href="javascript:search('保山');">保山</a>
+                                <a href="javascript:search('楚雄彝族自治州');" name="楚雄彝族自治州">楚雄州</a>
+                                <a href="javascript:search('大理白族自治州');" name="大理白族自治州">大理州</a>
+                                <a href="javascript:search('德宏傣族景颇族自治州');" name="德宏傣族景颇族自治州">德宏州</a>
+                                <a href="javascript:search('迪庆藏族自治州');" name="迪庆藏族自治州">迪庆州</a>
+                                <a href="javascript:search('红河哈尼族彝族自治州');" name="红河哈尼族彝族自治州">红河州</a>
+                                <a href="javascript:search('丽江');">丽江</a>
+                                <a href="javascript:search('临沧');">临沧</a>
+                                <a href="javascript:search('怒江傈僳族自治州');" name="怒江傈僳族自治州">怒江州</a>
+                                <a href="javascript:search('普洱');">普洱</a>
+                                <a href="javascript:search('曲靖');">曲靖</a>
+                                <a href="javascript:search('昭通');">昭通</a>
+                                <a href="javascript:search('文山壮族苗族自治州');" name="文山壮族苗族自治州">文山</a>
+                                <a href="javascript:search('西双版纳傣族自治州');" name="西双版纳傣族自治州">西双版纳</a>
+                                <a href="javascript:search('玉溪');">玉溪</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="sel-city-td-letter">
+                                <div>Z</div>
+                            </td>
+                            <td class="sel-city-td-sf"><a href="javascript:searchInfoByName('浙江省')">浙江:</a></td>
+                            <td><a href="javascript:search('杭州');">杭州</a>
+                                <a href="javascript:search('湖州');">湖州</a>
+                                <a href="javascript:search('嘉兴');">嘉兴</a>
+                                <a href="javascript:search('金华');">金华</a>
+                                <a href="javascript:search('丽水');">丽水</a>
+                                <a href="javascript:search('宁波');">宁波</a>
+                                <a href="javascript:search('衢州');">衢州</a>
+                                <a href="javascript:search('绍兴');">绍兴</a>
+                                <a href="javascript:search('台州');">台州</a>
+                                <a href="javascript:search('温州');">温州</a>
+                                <a href="javascript:search('舟山');">舟山</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--加载hdmap配置文件-->
+<script src="map.js"></script>
+<script>
+    /**********************************************************************************
+     ********************************一、地图初始化 ***********************************
+     **********************************************************************************/
+    (function() {
+        console.log("欢迎使用海大地图");
+        /*初始化服务器地址*/
+        _url = url+':8009/';
+        /*默认检索城市：大连市，在map。js中有效*/
+        cityName = '大连';
+        /*默认检索范围：陆图，在map。js中有效*/
+        searchType = 0;
+        /*添加海图陆图选择控件，默认为海图*/
+        seaLandOptionCtrl();
+        /*事件注册*/
+        addListener();
+        hasBoundaryPlayer = false;
+    })();
+    /************************************************************************************
+     ******************************** 二、业务逻辑 ***************************************
+     ************************************************************************************/
+    /*********** 1、声明事件注册 ************************/
+    function addListener() {
+        /*map缩放、平移结束触发*/
+//        map.on('dragend', dragZoomMapEnd);
+        map.on("zoomend", dragZoomMapEnd);
+        map.on("moveend", dragZoomMapEnd);
+        /*指定搜索城市按钮控制mappopup显示状态*/
+        $("#popup_button").on("click", function() {
+            if ($("#map_popup").css("display") == "none") {
+                $("#map_popup").css("display", "block")
+            } else {
+                $("#map_popup").css("display", "none")
+            }
+        });
+        /*判断当前浏览器是否为IE8*/
+        /*非IE8浏览器注册hover事件控制地区选择关闭*/
+        if (!isIE(8)) {
+            $(".popup_main").hover(
+                    function() {
+                        $("#map_popup").css("display", "block")
+                    },
+                    function(e) {
+                        console.log(e.clientX)
+                        $("#map_popup").css("display", "none")
+                    }
+            )
+            /*IE8浏览器注册mouseout事件控制地区选择关闭*/
+        } else {
+            /*IE8浏览器不支持阴影，添加边框*/
+            $(".popup_main").addClass("hdmap-oldie");
+            $(".popup_button").addClass("hdmap-oldie");
+            $(".hdmap-control-search").addClass("hdmap-oldie");
+            $(".hdmap-control-measure").addClass("hdmap-oldie");
+            $(".popup_main")
+                    .mouseover(function() {
+                        $("#map_popup").css("display", "block")
+                    })
+                    .mouseout(function(e) {
+                        /*如果不在popup_main中，取消事件冒泡*/
+                        if (isInDiv(e)) {
+                            window.event.cancelBubble = true;
+                        } else {
+                            $("#map_popup").css("display", "none")
+                        }
+                    }
+            )
+        }
+        /*海图陆图选择控件事件注册*/
+        /*显示状态*/
+        $("#sea-land-select").mousemove(function() {
+            $("#hdmap-control-layers-list").css("display", "block");
+            $("#hdmap-control-layers-toggle").css("display", "none");
+        });
+        /*注册鼠标移出隐藏事件，并设置搜索类型为当前checked*/
+        $("#sea-land-select").mouseout(function() {
+            $("#hdmap-control-layers-list").css("display", "none");
+            $("#hdmap-control-layers-toggle").css("display", "block");
+            searchType = parseInt($("input:radio:checked").val());
+            if (searchType === 1) {
+                /*检索类型：海图*/
+                cityName = "中国";
+            } else {
+                cityName = revertCityName;
+            }
+        })
+    }
+    /*判断鼠标是否在当前div中*/
+    function isInDiv(e) {
+        var temp = $(".popup_main");
+        var temp_left = temp.offset().left;
+        var temp_width = temp.width();
+
+        var temp_top = temp.offset().top;
+        var temp_height = temp.height();
+        var _dir_x = (e.clientX - 5 > (temp_left)) && (e.clientX + 5 < (temp_left + temp_width));
+        var _dir_y = (e.clientY > (temp_top)) && (e.clientY + 10 < (temp_top + temp_height));
+
+        if (_dir_x && _dir_y) {
+            return true;
+        } else return false;
+    }
+
+    /*********** 2、海图、陆图切换控件 ******************/
+    function seaLandOptionCtrl() {
+        $('<div id="sea-land-select" class="hdmap-control-layers hdmap-control" aria-haspopup="true">' +
+                '<a id="hdmap-control-layers-toggle" class="hdmap-control-layers-toggle" style="background-image: url(images/sea_land_map_marker.png);width: 36px;height: 36px;" href="#" title="Layers"></a>' +
+                '<form id="hdmap-control-layers-list" class="hdmap-control-layers-list" style="padding: 5px;"> ' +
+                '<div class="hdmap-control-layers-base"> ' +
+                '<p>搜索设置</p>' +
+                '<div class="hdmap-control-layers-separator"></div>' +
+                '<label> <input type="radio" class="hdmap-control-layers-selector" name="sealand" checked="checked" value="0"> ' +
+                '<span></span>陆地</span> </label> ' +
+                '<label> <input type="radio" class="hdmap-control-layers-selector" name="sealand" value="1">' +
+                '<span style="margin-left: 3px;">海洋</span> </label> </div> ' +
+                '</form> </div>').insertBefore(".hdmap-control-layers");
+    }
+
+    /*********** 3、地区列表滚动条位置确定 **************/
+    function scroll(px) {
+        $("#selCityPlaceListId").scrollTop(px);
+    }
+
+    /*********** 4、获取中心点坐标、根据坐标查询区划编码、查询后更新显示并设置cityname、根据缩放级别识别全国、省份、城市**********/
+    function dragZoomMapEnd() {
+        //        获取当前缩放级别
+        var map_zoom = map.getZoom();
+        //        获取地图中心地理坐标
+        var map_center_location = map.getCenter();
+        //        通过坐标取得所在位置行政区划信息，检索完成回调函数改变select菜单value值
+        var districtSearcher = new HDMap.DistrictSearch(
+                new HDMap.DistrictSearchOptions(_url, changeLocalSearchRegion)
+        );
+
+        function changeLocalSearchRegion(result) {
+            //        缩放级别大于5，返回城市名
+            if (map_zoom > 5 && result.status != -1) {
+                for (var i = 0, l = result._infolist.length; i < l; i++) {
+                    var classCode = result._infolist[l - 1 - i].districtclass;
+                    var regionCode = result._infolist[l - 1 - i].districtcode;
+                    var districtname = result._infolist[l - 1 - i].districtname
+                    if (classCode == 0) {
+                        regionCode = -1;
+                        continue;
+                    } else if (classCode == 1) {
+                        if (regionCode == 110000000 || regionCode == 120000000 || regionCode == 310000000 || regionCode == 500000000) {
+                            break;
+                        } else {
+                            var provinceCode = regionCode;
+                            regionCode = -1;
+                            continue;
+                        }
+                    } else if (classCode == 2 && districtname != "") {
+                        break;
+                    } else if (classCode == 3) {
+                        if (regionCode.toString().charAt(4) == 0 && regionCode.toString().charAt(2) == 9) {
+                            break;
+                        } else if (regionCode.toString().charAt(4) > 2) {
+                            break;
+                        } else {
+                            regionCode = -1;
+                            continue;
+                        }
+                    }
+                }
+                changeDisplay(districtname);
+                revertCityName = districtname;
+            } else if (map_zoom === 5 && result.status != -1) {
+                //        缩放级别等于5，返回省份
+                changeDisplay(result.getInfoList()[1].districtname);
+                revertCityName = cityName;
+            } else if (map_zoom < 5) {
+                //        缩放级别大于5，返回全国
+                changeDisplay("全国");
+                revertCityName = cityName;
+            }
+        }
+
+        //        开始检索
+        districtSearcher.searchInfoByLocation(map_center_location);
+        //        changeButtonValue函数功能：改变button值为地图中心坐标行政区划名、指定搜索城市为当前城市
+    }
+
+    /*********** 5、搜索的入口函数 **************/
+    function search(name) {
+        /*鼠标点击*/
+        if (name) {
+            searchCenterByRegion(name);
+        } else {
+            var searchInputVal = $(".sel-city-searchinput")[0].value;
+            searchInfoByName(searchInputVal);
+        }
+    }
+
+    /*********** 6、绘制区域边界 **************/
+    function drawRegionBoundary(result) {
+        if (hasBoundaryPlayer) {
+            map.removeLayer(polyline);
+            hasBoundaryPlayer = false;
+        }
+        hasBoundaryPlayer = true;
+        var _geoJson = result.geoJson.geometry.coordinates, levelsDeep;
+        if (_geoJson[0][0][0][0] instanceof Array) {
+            levelsDeep = 3;
+        } else if (_geoJson[0][0][0] instanceof Array) {
+            levelsDeep = 2;
+        } else if (_geoJson[0][0] instanceof Array) {
+            levelsDeep = 1;
+        }
+        var latlngs = HDMap.GeoJSON.coordsToLatLngs(_geoJson, levelsDeep);
+        polyline = HDMap.polyline(latlngs, {
+            color:"#1969e1",
+            dashArray:'5, 5',
+            weight:'2'
+        }).addTo(map);
+        map.fitBounds(polyline.getBounds());
+    }
+
+    /*********** 7、根据区划编码--取得某个行政区划的地理范围 ***********/
+    function searchBoundaryByRegion(region/*number*/) {
+        var districtSearcher = new HDMap.DistrictSearch(
+                new HDMap.DistrictSearchOptions(_url, function(result) {
+                            if (result.geoJson) {
+                                drawRegionBoundary(result)
+                            }
+                        }
+                )
+        );
+        districtSearcher.searchBoundaryByRegion(region);
+    }
+
+    /*********** 8、根据区划名称--取得行政区划编码 *****/
+    function searchInfoByName(name) {
+        var districtSearcher = new HDMap.DistrictSearch(
+                new HDMap.DistrictSearchOptions(_url, function(result) {
+                            var infoList = [];
+                            for (var i = 0, l1 = result.getInfoList().length; i < l1; i++) {
+                                for (var j = 0, l2 = result.getInfoList()[i].length; j < l2; j++) {
+                                    /*获取ajax返回结果*/
+                                    var info = result.getInfoList()[i][j];
+                                    /*获取当前区划等级与区划编码*/
+                                    var classCode = info.districtclass, regionCode = info.districtcode, districtname = info.districtname;
+                                    /*遍历info结果，取回所有包含搜索关键字的信息*/
+                                    if (districtname && districtname.indexOf(name) == 0) {
+                                        infoList.push(info);
+                                    }
+                                }
+                            }
+                            /*找到最大行政区划*/
+                            var maxClassCode = infoList[0].districtclass, j = 0;
+                            for (var i = 0, l = infoList.length; i < l; i++) {
+                                if (infoList[i].districtclass < maxClassCode) {
+                                    maxClassCode = infoList[i].districtclass;
+                                    j = i;
+                                }
+                            }
+//                            if (maxClassCode != 2) {
+//                                /*区划编码--查询--边界*/
+//
+//                            }
+                            if (infoList[j].districtclass == 2 || infoList[j].districtcode == 110000000 || infoList[j].districtcode == 120000000 || infoList[j].districtcode == 310000000 || infoList[j].districtcode == 500000000) {
+                                /*区划名称--查询--中心*/
+                                searchCenterByRegion(infoList[j].districtname);
+                            } else {
+                                searchBoundaryByRegion(infoList[j].districtcode);
+                            }
+
+
+                        }
+                )
+        )
+        districtSearcher.searchInfoByName(name);
+    }
+
+    /*********** 9、根据区划名称--取得行政区划中心坐标**/
+    function searchCenterByRegion(name) {
+        var districtSearcher = new HDMap.DistrictSearch(
+                new HDMap.DistrictSearchOptions(_url, function(result) {
+                            /*此处有BUG，如果没有结果，sdk没有返回result*/
+                            /*更换经纬度位置*/
+                            var lat = result._infolist[0][1];
+                            var lon = result._infolist[0][0];
+                            /*切换视图至该坐标点*/
+                            map.setView([lat, lon], 10)
+                        }
+                )
+        );
+        districtSearcher.searchCenterByRegion(name);
+    }
+
+    function searchBoundaryCenterByRegion(region) {
+        var districtSearcher = new HDMap.DistrictSearch(
+                new HDMap.DistrictSearchOptions(_url, function(result) {
+                            var i;
+                            var minlat, maxlat, minlon, maxlon;
+                            var lat, lon, latlon;
+                            if (result._infolist[0][0][0][0][0]) {
+                                //      最小纬度
+                                minlon = result._infolist[0][0][0][0][0];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i][0].length; j < l2; j++) {
+                                        if (minlon > result._infolist[0][i][0][j][0]) {
+                                            minlon = result._infolist[0][i][0][j][0];
+                                        }
+                                    }
+                                }
+                                //      最大纬度
+                                maxlon = result._infolist[0][0][0][0][0];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i][0].length; j < l2; j++) {
+                                        if (maxlon < result._infolist[0][i][0][j][0]) {
+                                            maxlon = result._infolist[0][i][0][j][0];
+                                        }
+                                    }
+                                }
+                                //      最小经度
+                                minlat = result._infolist[0][0][0][0][1];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i][0].length; j < l2; j++) {
+                                        if (minlat > result._infolist[0][i][0][j][1]) {
+                                            minlat = result._infolist[0][i][0][j][1];
+                                        }
+                                    }
+                                }
+                                //      最大经度
+                                maxlat = result._infolist[0][0][0][0][1];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i][0].length; j < l2; j++) {
+                                        if (maxlat < result._infolist[0][i][0][j][1]) {
+                                            maxlat = result._infolist[0][i][0][j][1];
+                                        }
+                                    }
+                                }
+                                map.fitBounds([
+                                    [minlat, minlon],
+                                    [maxlat, maxlon]
+                                ]);
+                            } else {
+                                //      最小纬度
+                                minlon = result._infolist[0][0][0][0];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i][0].length; j < l2; j++) {
+                                        if (minlon > result._infolist[0][i][0][j][0]) {
+                                            minlon = result._infolist[0][i][0][j][0];
+                                        }
+                                    }
+                                }
+                                //      最大纬度
+                                maxlon = result._infolist[0][0][0][0];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i].length; j < l2; j++) {
+                                        if (maxlon < result._infolist[0][i][j][0]) {
+                                            maxlon = result._infolist[0][i][j][0];
+                                        }
+                                    }
+                                }
+                                //      最小经度
+                                minlat = result._infolist[0][0][0][1];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i].length; j < l2; j++) {
+                                        if (minlat > result._infolist[0][i][j][1]) {
+                                            minlat = result._infolist[0][i][j][1];
+                                        }
+                                    }
+                                }
+                                //      最大经度
+                                maxlat = result._infolist[0][0][0][1];
+                                for (var i = 0, l1 = result._infolist[0].length; i < l1; i++) {
+                                    for (var j = 0, l2 = result._infolist[0][i].length; j < l2; j++) {
+                                        if (maxlat < result._infolist[0][i][j][1]) {
+                                            maxlat = result._infolist[0][i][j][1];
+                                        }
+                                    }
+                                }
+                                map.fitBounds([
+                                    [minlat, minlon],
+                                    [maxlat, maxlon]
+                                ]);
+                            }
+                        }
+                )
+        );
+        districtSearcher.searchBoundaryByRegion(region);
+    }
+
+    function changeDisplay(value) {
+        $(".city_change")[0].innerHTML = value;
+        $(".CurCityInfo")[0].innerHTML = value;
+        if (searchType === 0) {
+            cityName = value;
+        }
+    }
+
+    function isIE(ver) {
+        var b = document.createElement('b')
+        b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->'
+        return b.getElementsByTagName('i').length === 1
+    }
+</script>
+</body>
+</html>
